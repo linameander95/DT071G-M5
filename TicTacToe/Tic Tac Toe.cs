@@ -12,14 +12,14 @@ namespace TicTacToe
 {
     public partial class Form1 : Form
     {
-        public Form1()
+        public Form1() /*startar windows forms komponenten*/
         {
             InitializeComponent();
         }
-
+        //gör en string av spelbrädet och sätter currentTurn till 0
         String[] gameBoard = new string[9];
         int currentTurn = 0;
-
+        //funktion som säger vems tur det är baserat på jämna och ojämna nummer
         public String returnSymbol(int turn)
         {
             if (turn % 2 == 0)
@@ -31,7 +31,7 @@ namespace TicTacToe
                 return "X";
             }
         }
-
+        //funktion som kollar efter en vinnare genom att kontrollera om någon av de vinnande kombinationerna bara har X eller O i sig
         public void checkForWinner()
         {
             for (int i = 0; i < 8; i++)
@@ -76,10 +76,11 @@ namespace TicTacToe
                     reset();
                     MessageBox.Show("X har vunnit!", "Vi har en vinnare!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
+                //kör funktionen för att kolla om det är oavgjort
                 checkDraw();
             }
         }
-
+        //återställer spelbrädet
         public void reset()
         {
             button1.Text = "";
@@ -94,27 +95,27 @@ namespace TicTacToe
             gameBoard = new string[9];
             currentTurn = 0;
         }
-
+        //kollar om det blivit oavgjort genom att spelbrädet är fyllt men ingen vinnare utsetts
         public void checkDraw()
         {
             int counter = 0;
             for (int i = 0; i<gameBoard.Length; i++)
             {
-                if (gameBoard[i] != null) { counter++; }
-                if (counter == 9)
+                if (gameBoard[i] != null) { counter++; } //räknar ut om brädet är fullt genom att räkna hur många turer som gått
+                if (counter == 9) //spelbrickan har 9 rutor, därav 9
                 {
                     reset();
-                    MessageBox.Show("Det är oavgjort", "Ingen vinner :(", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    MessageBox.Show("Det är oavgjort", "Ingen vinner :(", MessageBoxButtons.OK, MessageBoxIcon.Exclamation); //skickar ut ett meddelande via en popup till användaren att det blivit oavgjort
                 }
             }
         }
-
+        //en funktion för varje ruta på spelbrickan som triggas när någon klickar på den
         private void button1_Click(object sender, EventArgs e)
         {
-            currentTurn++;
-            gameBoard[0] = returnSymbol(currentTurn);
-            button1.Text = gameBoard[0];
-            checkForWinner();
+            currentTurn++; //justerar vems tur det är genom att lägga till 1 på currentTurn
+            gameBoard[0] = returnSymbol(currentTurn); //variabel för symbolen som representerar vems tur det är 
+            button1.Text = gameBoard[0]; //placerar variabeln i rutan som klickats på spelbrädet
+            checkForWinner(); //kör funktionen för att kolla om någon vunnit
         }
 
         private void button2_Click(object sender, EventArgs e)
